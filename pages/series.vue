@@ -6,7 +6,25 @@
       <div class="pagination-wrapper">
         <pagination :current-page="currentPage" :total-items="totalItems" :rows-per-page="rowsPerPage" />
       </div>
-      <movie-list :movies="movies" />
+
+      <amp-state
+        id="Movies"
+        :src="url"
+        [src]="'https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=' + currentPage"
+      />
+
+      <amp-list
+        [src]="Movies.Search"
+        [hidden]="interaction ? false : 'hidden'"
+        hidden
+        width="auto"
+        height="570"
+        layout="fixed-height"
+        class="movie-list"
+        v-html="listTemplate"
+      />
+
+      <movie-list :movies="movies" [hidden]="interaction ? true : false" />
     </div>
   </div>
 </template>
@@ -14,7 +32,7 @@
 <script>
 import MovieList from '@/components/MovieList.vue'
 import Pagination from '@/components/Pagination.vue'
-import { getMovies } from '@/libs/apiClient'
+import { getMovies, getUrl } from '@/libs/apiClient'
 
 export default {
   components: {
@@ -27,21 +45,32 @@ export default {
       movies: [],
       rowsPerPage: 30,
       totalItems: 140,
-      currentPage: 1
+      currentPage: 1,
+      listTemplate: `
+        <template type="amp-mustache">
+          <div class="movie">
+            <amp-img src="{{Poster}}" width="197" height="310" layout="responsive" alt="a sample poster" />
+          </div>
+        </template>`
+    }
+  },
+
+  computed: {
+    url() {
+      return getUrl('man', this.currentPage)
     }
   },
 
   async asyncData() {
-    const movies = []
+    const res = await getMovies('man')
 
-    for (let i = 1; i < 4; i++) {
-      const list = await getMovies('man', 2019, i)
+    const movies = res.Search
 
-      movies.push(...list.filter(movie => movie.Poster !== 'N/A'))
-    }
+    const totalItems = parseInt(res.totalResults)
 
     return {
-      movies
+      movies,
+      totalItems
     }
   }
 }
@@ -49,7 +78,6 @@ export default {
 
 <style lang="scss">
 .content-wrapper {
-  background: #e9e9e7;
   padding: 50px 80px;
 
   .title {
@@ -61,5 +89,20 @@ export default {
 .pagination-wrapper {
   display: flex;
   justify-content: flex-end;
+}
+
+.movie-list {
+  div[role='list'] {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .content-wrapper {
+    padding: 50px 0;
+  }
 }
 </style>

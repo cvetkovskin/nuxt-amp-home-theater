@@ -15,10 +15,10 @@ export async function getMovies(keyword, year, page = 1) {
     return []
   }
 
-  return res.data.Search
+  return res.data
 }
 
-export function getUrl(keyword, year, page = 1) {
+export function getUrl(keyword, page = 1) {
   const offset = page || 1
-  return `${baseURL}&type=movie&s=${keyword}&y=${year}&page=${offset}`
+  return `${baseURL}&type=movie&s=${keyword}&page=${offset}`
 }

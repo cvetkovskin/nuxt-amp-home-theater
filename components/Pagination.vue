@@ -22,7 +22,7 @@
     </amp-state>
     <amp-state id="startItem">
       <script type="application/json">
-        {{ rowsPerPage * (currentPage - 1) + 1 }}
+        {{ startItem }}
       </script>
     </amp-state>
     <amp-state id="endItem">
@@ -30,7 +30,11 @@
         {{ endItem }}
       </script>
     </amp-state>
-    <amp-state id="movies" :src="url" />
+    <amp-state id="interaction">
+      <script type="application/json">
+        false
+      </script>
+    </amp-state>
 
     <div class="info">
       <span [text]="'Showing ' + startItem + ' - ' + endItem + ' out of ' + totalItems + ' movies'">
@@ -42,7 +46,7 @@
         class="button"
         :class="{ 'is-disabled': currentPage === 1 }"
         [class]="currentPage == 1 ? 'button is-disabled' : 'button'"
-        on="tap:AMP.setState({ currentPage: currentPage - 1, startItem: startItem - rowsPerPage, endItem: endItem - rowsPerPage })"
+        on="tap:AMP.setState({ currentPage: currentPage - 1, startItem: startItem - rowsPerPage, endItem: endItem - rowsPerPage, interaction: true })"
         role="button"
         tabindex="5"
       >
@@ -57,7 +61,7 @@
         class="button"
         :class="{ 'is-disabled': currentPage === totalPages }"
         [class]="currentPage == totalPages ? 'button is-disabled' : 'button'"
-        on="tap:AMP.setState({ currentPage: currentPage + 1 , startItem: startItem + rowsPerPage, endItem: totalItems < endItem + rowsPerPage ? totalItems : endItem + rowsPerPage })"
+        on="tap:AMP.setState({ currentPage: currentPage + 1 , startItem: startItem + rowsPerPage, endItem: totalItems < endItem + rowsPerPage ? totalItems : endItem + rowsPerPage, interaction: true })"
         role="button"
         tabindex="5"
       >
@@ -71,7 +75,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { getUrl } from '@/libs/apiClient'
 
 library.add(faChevronRight, faChevronLeft)
 
@@ -112,10 +115,6 @@ export default {
 
     totalPages() {
       return Math.ceil(this.totalItems / this.rowsPerPage)
-    },
-
-    url() {
-      return getUrl('man', 2019, this.currentPage)
     }
   }
 }

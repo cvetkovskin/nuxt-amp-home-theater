@@ -33,7 +33,7 @@ export default {
     for (let i = 1; i < 4; i++) {
       const list = await getMovies('man', 2019, i)
 
-      movies.push(...list.filter(movie => movie.Poster !== 'N/A'))
+      movies.push(...list.Search.filter(movie => movie.Poster !== 'N/A'))
     }
 
     return {
@@ -45,12 +45,17 @@ export default {
 
 <style lang="scss">
 .content-wrapper {
-  background: #e9e9e7;
   padding: 50px 80px;
 
   .title {
     margin-bottom: 40px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .content-wrapper {
+    padding: 50px 0;
   }
 }
 </style>
