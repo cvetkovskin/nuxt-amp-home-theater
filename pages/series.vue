@@ -89,6 +89,7 @@ export default {
 .pagination-wrapper {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 15px;
 }
 
 .movie-list {

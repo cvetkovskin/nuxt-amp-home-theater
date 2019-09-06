@@ -1,5 +1,5 @@
 <template>
-  <div class="toolbar">
+  <div class="toolbar" :class="{ dark: isHome }">
     <div class="items">
       <div class="t-btn t-btn-desktop" role="button" tabindex="1" on="tap:AMP.navigateTo(url='/')">
         Home
@@ -28,6 +28,12 @@ export default {
 
   components: {
     faIcon: FontAwesomeIcon
+  },
+
+  computed: {
+    isHome() {
+      return this.$route.fullPath === '/'
+    }
   }
 }
 </script>
@@ -91,6 +97,10 @@ export default {
       min-width: 50px;
     }
   }
+}
+
+.dark {
+  color: #35495e;
 }
 
 @media screen and (max-width: 430px) {
