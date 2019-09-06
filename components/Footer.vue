@@ -37,7 +37,7 @@
     flex-flow: column;
 
     a {
-      color: #030303;
+      color: #fff;
       font-weight: bold;
     }
   }
