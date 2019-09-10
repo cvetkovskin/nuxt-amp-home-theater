@@ -1,13 +1,13 @@
 <template>
   <div class="row banner">
     <div class="title-logo">
-      <img width="1048" height="200" src="@/assets/images/title-logo.png" />
+      <amp-img width="1048" height="200" layout="responsive" :src="appLogo" />
     </div>
     <div class="nuxt-logo">
-      <img width="300" height="220" src="@/assets/images/nuxt-logo.png" />
+      <amp-img width="300" height="220" layout="responsive" :src="nuxtLogo" />
     </div>
     <div class="amp-logo">
-      <img width="256" height="256" src="@/assets/images/amp-logo.svg" />
+      <amp-img width="256" height="256" layout="responsive" :src="ampLogo" />
     </div>
     <div class="banner-carousel">
       <amp-carousel width="197" height="310" layout="responsive" type="slides" autoplay delay="2000">
@@ -31,6 +31,14 @@ export default {
     movies: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data() {
+    return {
+      appLogo: require('@/assets/images/title-logo.png'),
+      nuxtLogo: require('@/assets/images/nuxt-logo.png'),
+      ampLogo: require('@/assets/images/amp-logo.svg')
     }
   }
 }

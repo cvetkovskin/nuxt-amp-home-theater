@@ -8,7 +8,7 @@ const modifyHtml = html => {
   // Add amp-custom tag to added CSS and join all the CSS into one <style-tag>
   let styleConcat = ''
   html = html.replace(/(<style\b[^<>]*>)([^<]*)(<\/style>)/gi, (_match, p1, p2) => {
-    styleConcat += p2.replace()
+    styleConcat += p2
     return ''
   })
 
@@ -31,11 +31,6 @@ const modifyHtml = html => {
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>`
 
   html = html.replace('</head>', ampScript + ampBoilerplate + '</head>')
-
-  // Replace img tags with amp-img
-  html = html.replace(/<img([^>]*)>/gi, (match, sub) => {
-    return `<amp-img ${sub} layout=intrinsic></amp-img>`
-  })
 
   html = html.replace(/<amp-carousel([^>]*)>/gi, match => {
     return match.replace('autoplay="autoplay"', 'autoplay')
