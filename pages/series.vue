@@ -14,29 +14,25 @@
       />
 
       <amp-list
-        [src]="Movies.Search"
-        [hidden]="interaction ? false : 'hidden'"
-        hidden
+        src="https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=1"
+        [src]="'https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=' + currentPage"
+        items="Search"
         width="auto"
         height="570"
         layout="fixed-height"
         class="movie-list"
         v-html="listTemplate"
       />
-
-      <movie-list :movies="movies" [hidden]="interaction ? true : false" />
     </div>
   </div>
 </template>
 
 <script>
-import MovieList from '@/components/MovieList.vue'
 import Pagination from '@/components/Pagination.vue'
 import { getMovies, getUrl } from '@/libs/apiClient'
 
 export default {
   components: {
-    MovieList,
     Pagination
   },
 
@@ -99,11 +95,26 @@ export default {
     justify-content: center;
     width: 100%;
   }
+
+  .movie {
+    width: 185px;
+    margin: 10px;
+
+    &:hover {
+      box-shadow: 0 0 11px rgba(33, 33, 33, 0.5);
+    }
+  }
 }
 
 @media screen and (max-width: 430px) {
   .content-wrapper {
     padding: 50px 0;
+  }
+
+  .movie-list {
+    .movie {
+      width: 140px;
+    }
   }
 }
 </style>

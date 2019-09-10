@@ -30,11 +30,6 @@
         {{ endItem }}
       </script>
     </amp-state>
-    <amp-state id="interaction">
-      <script type="application/json">
-        false
-      </script>
-    </amp-state>
 
     <div class="info">
       <span [text]="'Showing ' + startItem + ' - ' + endItem + ' out of ' + totalItems + ' movies'">
@@ -46,7 +41,7 @@
         class="button"
         :class="{ 'is-disabled': currentPage === 1 }"
         [class]="currentPage == 1 ? 'button is-disabled' : 'button'"
-        on="tap:AMP.setState({ currentPage: currentPage - 1, startItem: startItem - rowsPerPage, endItem: endItem - rowsPerPage, interaction: true })"
+        on="tap:AMP.setState({ currentPage: currentPage - 1, startItem: startItem - rowsPerPage, endItem: endItem - rowsPerPage })"
         role="button"
         tabindex="5"
       >
@@ -61,7 +56,7 @@
         class="button"
         :class="{ 'is-disabled': currentPage === totalPages }"
         [class]="currentPage == totalPages ? 'button is-disabled' : 'button'"
-        on="tap:AMP.setState({ currentPage: currentPage + 1 , startItem: startItem + rowsPerPage, endItem: totalItems < endItem + rowsPerPage ? totalItems : endItem + rowsPerPage, interaction: true })"
+        on="tap:AMP.setState({ currentPage: currentPage + 1 , startItem: startItem + rowsPerPage, endItem: totalItems < endItem + rowsPerPage ? totalItems : endItem + rowsPerPage })"
         role="button"
         tabindex="5"
       >
