@@ -7,12 +7,6 @@
         <pagination :current-page="currentPage" :total-items="totalItems" :rows-per-page="rowsPerPage" />
       </div>
 
-      <amp-state
-        id="Movies"
-        :src="url"
-        [src]="'https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=' + currentPage"
-      />
-
       <amp-list
         src="https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=1"
         [src]="'https://www.omdbapi.com/?apikey=7f517297&type=movie&s=man&page=' + currentPage"
